@@ -1,0 +1,18 @@
+<div class="mb-2">
+  <a routerLink="/hotels" class="btn btn-sm btn-outline-primary">&larr; Back to search</a>
+</div>
+<div class="row g-3">
+  <div class="col-lg-3">
+    <app-left-panel [hotel]="hotel" />
+  </div>
+  <div class="col-lg-9">
+    <ul class="nav nav-tabs mb-3">
+      @for (m of menus; track m.path) {
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="m.path" routerLinkActive="active">{{ m.label }}</a>
+        </li>
+      }
+    </ul>
+    <router-outlet />
+  </div>
+</div>

@@ -1,0 +1,126 @@
+<div class="card shadow-sm">
+
+  <!-- Image + provider -->
+  <div class="card-body d-flex align-items-center">
+    <img
+      [src]="imgFailed ? fallbackImage : hotel.imageUrl"
+      (error)="imgFailed = true"
+      [alt]="hotel.name"
+      class="rounded-circle me-3"
+      style="width: 70px; height: 70px; object-fit: cover"
+    />
+    <div>
+      <h6 class="mb-0">{{ hotel.name }}</h6>
+      <small class="text-primary">{{ hotel.provider }}</small>
+    </div>
+  </div>
+
+  @if (message) {
+    <div class="alert alert-success py-1 mx-3">{{ message }}</div>
+  }
+  @if (errorMessage) {
+    <div class="alert alert-danger py-1 mx-3">{{ errorMessage }}</div>
+  }
+
+  <!-- ============ ADDRESS ============ -->
+  <div class="card-header bg-light d-flex justify-content-between align-items-center border-top">
+    <strong>Address</strong>
+    @if (!editAddress) {
+      <button class="btn btn-sm btn-outline-primary" (click)="startEditAddress()">Edit</button>
+    }
+  </div>
+
+  <div class="card-body">
+    @if (!editAddress) {
+      <div class="row mb-2"><div class="col-5 text-primary">Street</div><div class="col-7">{{ hotel.address }}</div></div>
+      <div class="row mb-2"><div class="col-5 text-primary">State</div><div class="col-7">{{ hotel.state }}</div></div>
+      <div class="row mb-2"><div class="col-5 text-primary">Country</div><div class="col-7">{{ hotel.country }}</div></div>
+      <div class="row mb-2"><div class="col-5 text-primary">Pincode</div><div class="col-7">{{ hotel.pincode }}</div></div>
+      <div class="row mb-2"><div class="col-5 text-primary">Email</div><div class="col-7 text-break">{{ hotel.email }}</div></div>
+      <div class="row"><div class="col-5 text-primary">Phone</div><div class="col-7">{{ hotel.phone }}</div></div>
+    } @else {
+      <div class="mb-2">
+        <label class="form-label small mb-1">Street</label>
+        <input class="form-control form-control-sm" [class.is-invalid]="addressErrors['address']" [(ngModel)]="addressData.address" />
+        <div class="invalid-feedback">{{ addressErrors['address'] }}</div>
+      </div>
+      <div class="mb-2">
+        <label class="form-label small mb-1">State</label>
+        <input class="form-control form-control-sm" [class.is-invalid]="addressErrors['state']" [(ngModel)]="addressData.state" />
+        <div class="invalid-feedback">{{ addressErrors['state'] }}</div>
+      </div>
+      <div class="mb-2">
+        <label class="form-label small mb-1">Country</label>
+        <input class="form-control form-control-sm" [class.is-invalid]="addressErrors['country']" [(ngModel)]="addressData.country" />
+        <div class="invalid-feedback">{{ addressErrors['country'] }}</div>
+      </div>
+      <div class="mb-2">
+        <label class="form-label small mb-1">Pincode</label>
+        <input class="form-control form-control-sm" maxlength="6" [class.is-invalid]="addressErrors['pincode']" [(ngModel)]="addressData.pincode" />
+        <div class="invalid-feedback">{{ addressErrors['pincode'] }}</div>
+      </div>
+      <div class="mb-2">
+        <label class="form-label small mb-1">Email</label>
+        <input class="form-control form-control-sm" [class.is-invalid]="addressErrors['email']" [(ngModel)]="addressData.email" />
+        <div class="invalid-feedback">{{ addressErrors['email'] }}</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label small mb-1">Phone Number</label>
+        <input class="form-control form-control-sm" maxlength="10" [class.is-invalid]="addressErrors['phone']" [(ngModel)]="addressData.phone" />
+        <div class="invalid-feedback">{{ addressErrors['phone'] }}</div>
+      </div>
+      <button class="btn btn-primary btn-sm me-2" (click)="saveAddress()">Save</button>
+      <button class="btn btn-outline-secondary btn-sm" (click)="cancelAddress()">Cancel</button>
+    }
+  </div>
+
+  <!-- ============ BASIC INFO ============ -->
+  <div class="card-header bg-light d-flex justify-content-between align-items-center border-top">
+    <strong>Basic Info</strong>
+    @if (!editBasic) {
+      <button class="btn btn-sm btn-outline-primary" (click)="startEditBasic()">Edit</button>
+    }
+  </div>
+
+  <div class="card-body">
+    @if (!editBasic) {
+      <div class="row mb-2"><div class="col-5 text-primary">Short Name</div><div class="col-7">{{ hotel.shortName }}</div></div>
+      <div class="row mb-2"><div class="col-5 text-primary">Id</div><div class="col-7">{{ hotel.id }}</div></div>
+      <div class="row mb-2"><div class="col-5 text-primary">Hotel Type</div><div class="col-7">{{ hotel.hotelType }}</div></div>
+      <div class="row mb-2"><div class="col-5 text-primary">Default Currency</div><div class="col-7">{{ hotel.currency }}</div></div>
+      <div class="row"><div class="col-5 text-primary">Location</div><div class="col-7">{{ hotel.location }}</div></div>
+    } @else {
+      <div class="mb-2">
+        <label class="form-label small mb-1">Short Name</label>
+        <input class="form-control form-control-sm" maxlength="10" [class.is-invalid]="basicErrors['shortName']" [(ngModel)]="basicData.shortName" />
+        <div class="invalid-feedback">{{ basicErrors['shortName'] }}</div>
+      </div>
+      <div class="mb-2">
+        <label class="form-label small mb-1">Id</label>
+        <input class="form-control form-control-sm" [value]="hotel.id" disabled />
+      </div>
+      <div class="mb-2">
+        <label class="form-label small mb-1">Hotel Type</label>
+        <select class="form-select form-select-sm" [class.is-invalid]="basicErrors['hotelType']" [(ngModel)]="basicData.hotelType">
+          <option value="">-- Select --</option>
+          @for (t of hotelTypes; track t) {
+            <option [value]="t">{{ t }}</option>
+          }
+        </select>
+        <div class="invalid-feedback">{{ basicErrors['hotelType'] }}</div>
+      </div>
+      <div class="mb-2">
+        <label class="form-label small mb-1">Default Currency</label>
+        <input class="form-control form-control-sm" maxlength="3" [class.is-invalid]="basicErrors['currency']" [(ngModel)]="basicData.currency" />
+        <div class="invalid-feedback">{{ basicErrors['currency'] }}</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label small mb-1">Location</label>
+        <input class="form-control form-control-sm" [class.is-invalid]="basicErrors['location']" [(ngModel)]="basicData.location" />
+        <div class="invalid-feedback">{{ basicErrors['location'] }}</div>
+      </div>
+      <button class="btn btn-primary btn-sm me-2" (click)="saveBasic()">Save</button>
+      <button class="btn btn-outline-secondary btn-sm" (click)="cancelBasic()">Cancel</button>
+    }
+  </div>
+</div>

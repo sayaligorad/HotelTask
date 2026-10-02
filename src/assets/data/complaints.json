@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "complaintTitle": "AC Not Working",
+    "status": "Open"
+  },
+  {
+    "id": 2,
+    "complaintTitle": "Room Cleaning Delay",
+    "status": "Closed"
+  },
+  {
+    "id": 3,
+    "complaintTitle": "Food Quality Issue",
+    "status": "Open"
+  },
+  {
+    "id": 4,
+    "complaintTitle": "WiFi Not Available",
+    "status": "Closed"
+  }
+]

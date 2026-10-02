@@ -1,0 +1,14 @@
+[
+  { "month": "Jan", "bookingCount": 45 },
+  { "month": "Feb", "bookingCount": 60 },
+  { "month": "Mar", "bookingCount": 55 },
+  { "month": "Apr", "bookingCount": 80 },
+  { "month": "May", "bookingCount": 95 },
+  { "month": "Jun", "bookingCount": 110 },
+  { "month": "Jul", "bookingCount": 125 },
+  { "month": "Aug", "bookingCount": 100 },
+  { "month": "Sep", "bookingCount": 90 },
+  { "month": "Oct", "bookingCount": 115 },
+  { "month": "Nov", "bookingCount": 130 },
+  { "month": "Dec", "bookingCount": 150 }
+]
